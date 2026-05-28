@@ -1,10 +1,7 @@
 package in.arc.quizApp.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +10,6 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,9 +27,8 @@ public class Question {
     )
     private List<String> tags;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Option> options;
-
-    @OneToMany
-    private List<Option> correctOptions;
 }
